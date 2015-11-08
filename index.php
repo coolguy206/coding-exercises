@@ -46,13 +46,22 @@ kennedy.cry();
 </head>
 
 <body>
+<h2>New Users</h2>
+<form method="post" action="">
+	<label>Name</label>
+	<input type="text">
+	<label>Password</label>
+	<input type="text">
+	<input type="submit" value="Register">
+</form>
 
+<h2>Returning Users</h2>
 <form method="post" action="">
 	<label>Name</label>
 	<input type="text">
 	<label>Password</label>
 	<input type="password">
-	<input type="submit">
+	<input type="submit" value="Log In">
 </form>
 
 </body>
