@@ -60,7 +60,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 $name = $_REQUEST['name'];
 $password = $_REQUEST['password'];
 
-echo 'hello my name is ' . $name . ' and my password is ' . $password;
+echo 'hello my name is ' . htmlentities($name) . ' and my password is ' . htmlentities($password);
 }
 
 ?>
