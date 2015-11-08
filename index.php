@@ -1,3 +1,15 @@
+<?php
+if(isset($_REQUEST['name'])) {
+	$name = $_REQUEST['name'];
+}
+
+if(isset($_REQUEST['password'])) {
+	$password = $_REQUEST['password'];
+}
+
+setcookie($name, $password);
+setcookie('user', 'ohyeah', time() - 3600);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,6 +73,7 @@ $name = $_REQUEST['name'];
 $password = $_REQUEST['password'];
 
 echo 'hello my name is ' . htmlentities($name) . ' and my password is ' . htmlentities($password);
+
 }
 
 ?>
