@@ -46,7 +46,15 @@ kennedy.cry();
 </head>
 
 <body>
-Content of the document......
+
+<form method="post" action="">
+	<label>Name</label>
+	<input type="text">
+	<label>Password</label>
+	<input type="password">
+	<input type="submit">
+</form>
+
 </body>
 
 </html>
