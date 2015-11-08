@@ -55,6 +55,17 @@ kennedy.cry();
 	<input type="submit" value="Register">
 </form>
 
+<?php 
+if($_SERVER['REQUEST_METHOD'] == "POST") {
+$name = $_REQUEST['name'];
+$password = $_REQUEST['password'];
+
+echo 'hello my name is ' . $name . ' and my password is ' . $password;
+}
+
+?>
+
+
 <h2>Returning Users</h2>
 <form method="post" action="">
 	<label>Name</label>
