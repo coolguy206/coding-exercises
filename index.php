@@ -1,25 +1,43 @@
 <?php
-if(isset($_REQUEST['name'])) {
-	$name = $_REQUEST['name'];
+class Users {
+	public $userName;
+	public $userPassword;
+	public function __construct($userName, $userPassword) {
+        $this->userName = $userName;
+    	$this->userPassword = $userPassword;
+    }
+    
 }
 
-if(isset($_REQUEST['password'])) {
-	$password = $_REQUEST['password'];
+class newUsers extends Users {
+	public $userName = 'riley';
+	public $userPassword = 'riley415';
 }
 
-// setcookie($name, $password);
-// setcookie('user', 'ohyeah', time() - 3600);
+$david = new Users('david', 'david415');
+$riley = new newUsers('riley', 'riley415');
+
+setcookie($david->userName, $david->userPassword);
+setcookie($riley->userName, $riley->userPassword);
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Coding exercise</title>
+<style>
+label, input {display: block; margin-bottom: 10px;}
+.fail {color: #f00;}
+.success {color: #0f0;}
+</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
+// $.removeCookie('david');
+
 // QUESTION #1
+// ---------------------------------------------------------
 var youngHuman = {};
 youngHuman.Baby = function(babyName, age, gender, race, species) {
 	this.babyName = babyName;
@@ -62,11 +80,9 @@ console.log(youngHuman.kennedy.babyName + ' is a ' + youngHuman.kennedy.species)
 youngHuman.kennedy.cry();
 
 
-
-// var cookie = $.cookie('testCookie', 'value');
-// console.log(cookie);
-
-
+// JAVASCRIPT VERSION OF QUESTION #2
+// ---------------------------------------------------------
+/*
 var Users = {};
 	Users.People = function(user, pass){
 		this.user = user;
@@ -77,7 +93,6 @@ Users.david = new Users.People('david', 'david206');
 
 $(document).ready(function(){
 	
-
 	if($.cookie('david')){
 		$('#existing input[name="user"]').val(Users.david.user);
 		$('#existing input[name="secret"]').val($.cookie('david'));
@@ -101,7 +116,7 @@ $(document).ready(function(){
 		return false;
 	});
 });
-
+*/
 </script>
 </head>
 
@@ -118,31 +133,23 @@ $(document).ready(function(){
 -->
 
 <?php 
-class Users {
-	public $userName;
-	public $userPassword;
-	public function __construct($userName, $userPassword) {
-        $this->userName = $userName;
-    	$this->userPassword = $userPassword;
-    }
-    
-}
-
-if($_SERVER['REQUEST_METHOD'] == "GET") {
+/*if($_SERVER['REQUEST_METHOD'] == "GET") {
 $name = $_REQUEST['name'];
 $password = $_REQUEST['password'];
 
-/*echo 'hello my name is ' . htmlentities($name) . ' and my password is ' . htmlentities($password);*/
+echo 'hello my name is ' . htmlentities($name) . ' and my password is ' . htmlentities($password);
 
 $guy = new Users($name, $password);
 print_r($guy);
 
-}
-
+}*/
 ?>
+<p>
+Username: david<br/>
+Password: david415
+</p>
 
-
-<h2>Returning Users</h2>
+<h2>LOG IN</h2>
 <form method="post" action="" id="existing">
 	<label>Name</label>
 	<input type="text" name="user">
@@ -153,14 +160,20 @@ print_r($guy);
 
 <?php
 if($_SERVER['REQUEST_METHOD'] == "POST") {
-$user = $_REQUEST['user'];
-$secret = $_REQUEST['secret'];
+	$user = htmlentities($_REQUEST['user']);
+	$secret = htmlentities($_REQUEST['secret']);
 
-	print_r($guy);
-	if($guy->userName == $user) {
-		echo 'success';
+	if($david->userName == $user && $david->userPassword == $secret) {
+		echo '<p class="success">SUCCESS! YOU HAVE LOGGED IN ' . strtoupper($david->userName) . '!</p>';
+	} else {
+		echo '<p class="fail">Oh something went wrong, please try again.</p>';
 	}
+
+	
 }
+
+// print_r($david);
+// print_r($riley);
 ?>
 
 </body>
