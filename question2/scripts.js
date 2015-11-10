@@ -1,25 +1,38 @@
 // JAVASCRIPT VERSION OF QUESTION #2
 // ---------------------------------------------------------
 
- // $.removeCookie('david');
- // $.removeCookie('riley');
+ $.removeCookie('david');
+ $.removeCookie('riley');
 
-var Users = {};
+$(document).ready(function(){
+	var Users = {};
 	Users.People = function(user, pass){
 		this.user = user;
 		this.pass = pass;
 	};
 
-Users.david = new Users.People('david', 'david206');
-
-$(document).ready(function(){
+	Users.david = new Users.People('david', 'david206');
 	
 	if($.cookie('david')){
 		$('#existing input[name="user"]').val(Users.david.user);
 		$('#existing input[name="secret"]').val($.cookie('david'));
 	}
 
-	$('#existing input[type="submit"]').click(function(){
+	$('#existing').submit(function(){
+		$.post('class.php', function(data){
+		var container = $('<div></div>');
+		$('#existing').after(container);
+		container.text(data);
+		
+		});
+		return false;
+	});
+	
+
+
+
+
+	/*$('#existing input[type="submit"]').click(function(){
 		var userName = $('#existing input[name="user"]').val();
 		var userPassword = $('#existing input[name="secret"]').val();
 		var container = $('<div></div>');
@@ -35,5 +48,5 @@ $(document).ready(function(){
 			container.text('Oh something went wrong, please try again.').delay(3000).fadeOut(function(){$(this).remove();});
 		}
 		return false;
-	});
+	});*/
 });
