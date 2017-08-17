@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Pig Latin</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<style>
+			.wrap {
+				width: 80%;
+				margin: 0 auto;
+				font-family: arial;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap">
+			<h1>Pig Latin Translator</h1>
+			<p>Please add your sentence to translate.</p>
+			<input type="text">
+			<button>Translate</button>
+			<div class="translated"></div>
+		</div>
+
+		<script>
+			$(document).ready(function(){
+
+				// make the vowel array
+				var vowelArray = ['a','e','i','o','u','A','E','I','O','U'];
+
+				//on button click translate
+				$('.wrap button').click(function(){
+					//get the value of the input
+					var str = $('.wrap input').val();
+
+					//console the value of the input
+					// console.log('this is the value of the input')
+					// console.log(str);
+
+					//turn the str variable to array
+					var strArray = str.split(' ');
+
+					// console the strArray
+					// console.log('this is the strArray');
+					// console.log(strArray);
+
+					// loop through strArray to check if 1st letter is a vowel
+					strArray.forEach(function(val,i){
+						// get the first letter of each word
+						var letter = val.charAt(0);
+
+						// loop through the vowelArray to check if letter == vowelArray
+						vowelArray.forEach(function(v,j){
+							// if letter == v then add way to the end of the word
+							if(letter == v) {
+								// get the current word in the strArray loop which is val and add way
+								var vowelWord = val + 'way';
+
+								// console the vowelWord
+								// console.log('this is the new word with way at the end');
+								// console.log(vowelWord);
+
+								// replace the vowelWord in the strArray
+								strArray[i] = vowelWord;
+							} //end of if
+
+							// else if letter !== vowel then loop through val until it == vowel
+							else if(letter !== 'a' && letter !== 'e' && letter !== 'i' && letter !== 'o' && letter !== 'u' !== 'A' && letter !== 'E' && letter !== 'I' && letter !== 'O' && letter !== 'U' ){
+								// console.log('this word doesnt not start with a vowel');
+								// console.log(val);
+ 
+								// turn val into array
+								var wordArray = val.split(''); 
+
+								// make a variable to hold the number of letters to remove
+								var count = 0;
+								// loop through wordArray until == a,e,i,o,u
+								// I found .every() which loops through and if you want to stop the loop just call return false
+								wordArray.every(function(w,k){
+									//check if after the first letter there is a 'y'
+									if(k > 0 && w == 'y'){
+										wordArray.splice(0,count);
+										// after wordArray.splice() wordArray would = ['i','s','t','h'];
+
+										// turn the array back into a string
+										newWord = wordArray.join('')
+										
+										// add ay to the end of newWord
+										newWord = newWord + 'ay';
+
+										// replace the newWord in the strArray
+										strArray[i] = newWord;
+										// stop the loop
+										return false;
+
+									} //end of if
+
+
+									// if w !== a,e,i,o,u
+									else if(w !== 'a' && w !== 'e' && w !== 'i' && w !== 'o' && w !== 'u' && w !== 'A' && w !== 'E' && w !== 'I' && w !== 'O' && w !== 'U') {
+										// take that letter and add it the end of the wordArray
+										wordArray.push(w);
+
+										// console.log('this is the current wordArray');
+										// console.log(wordArray);
+
+										// add 1 to count
+										count = count + 1;
+										// to keep the loop going for .every() you must call return true
+										return true;
+									
+									} //end of else if
+
+									
+									// if w == a,e,i,o,u
+									else {
+										//remove the letters from wordArray 
+										//for example the word 'this'
+										// wordArray would = ['t','h','i','s','t','h']; from line 84
+										wordArray.splice(0,count);
+										// after wordArray.splice() wordArray would = ['i','s','t','h'];
+
+										// turn the array back into a string
+										newWord = wordArray.join('')
+										
+										// add ay to the end of newWord
+										newWord = newWord + 'ay';
+
+										// replace the newWord in the strArray
+										strArray[i] = newWord;
+										// stop the loop
+										return false;
+
+									} //end of else
+
+								}); //end of .every()
+									
+							} //end of else if
+
+
+						}); //end of vowelArray loop
+					}); //end of strArray looop
+
+					// console strArray if it has been updated into pig latin
+					// console.log(strArray);
+
+					// change strArray back into a string
+					var newStr = strArray.join(' ');
+
+					// console the newStr
+					// console.log('this is the string translated into pig latin');
+					// console.log(newStr);
+
+
+					//if there is already text inside translated remove it
+					$('.translated').html('');
+
+					// output the new string to the page
+					$('.translated').append('<h2>We have translated your sentence into Pig Latin!</h2><h3>"'+newStr+'"</h3>');
+
+				}); //end of click function
+				
+			}); //end of .ready function
+		</script>
+	</body>
+
+</html>
